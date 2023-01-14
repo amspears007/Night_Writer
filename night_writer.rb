@@ -1,1 +1,0 @@
-File.open(message.txt, "r")
