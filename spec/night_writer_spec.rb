@@ -55,16 +55,18 @@ RSpec.describe NightWriter do
     expect(night_writer.braille_alphabet).to eq(expected)
   end
 
-    it 'can translate english to braille' do
+    it 'can translate a single letter to braille' do
       night_writer = NightWriter.new
       night_writer.read_file = './message.txt'
       night_writer.write_file = './braille.txt'
 
-      expect(night_writer.translate_to_braille("a")).to eq("0./n../n..")
-      # expect(night_writer.translate_to_braille("abc")).to eq([["0.", "..", ".."],["00", "..", ".."],["0.", ".0", ".."]])
-      # expect(night_writer.translate("amy")).to eq("0./n../n..")
-      
-
+      expect(night_writer.translate_to_braille("a")).to eq("0.\n..\n..")
+      expect(night_writer.translate_to_braille("l")).to eq("00\n0.\n..")
     end
- 
+      # expect(night_writer.translate_to_braille("abc")).to eq([["0.", "..", ".."],["00", "..", ".."],["0.", ".0", ".."]])
+
+    xit 'can translate words to braille' do
+      expect(night_writer.translate_to_braille("amy")).to eq("0.0.0.\n..0000\n....00")
+      
+    end
 end

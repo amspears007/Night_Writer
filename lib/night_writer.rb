@@ -56,7 +56,7 @@ class NightWriter
     braille_arr = []
     text_array = text.split("")
     text_array.each do |letter|
-      braille_arr << @braille_alphabet[letter].join("/n")
+      braille_arr << @braille_alphabet[letter].join("\n")
     end
     braille_arr.join
   end
