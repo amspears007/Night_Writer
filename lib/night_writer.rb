@@ -6,7 +6,7 @@ class NightWriter
     @write_file = ARGV[1]
   end
 
-  def call_read_to_write
+  def call
     #a start method
     message_file = File.open(@read_file, "r")
     return_file = File.new(@write_file, "w")
@@ -16,14 +16,14 @@ class NightWriter
     puts "Created #{ARGV[1]} contains #{char_count} characters"
 
     return_file.write(message_file.read)
-    return_file.close
+    # return_file.close
   end
 end
 
 
 # #Acts a runner file outside of class
 # night_writer = NightWriter.new
-# night_writer.call
+# night_writer.call_read_to_write
 
 #start method this new_method to translate to braille
 
