@@ -37,8 +37,9 @@ class NightWriter
     }
   end
 
-  def call
+  def call_read_to_write
     #a start method
+    # message_text= File.read(@read_file)
     message_file = File.open(@read_file, "r")
     return_file = File.new(@write_file, "w")
 
@@ -48,6 +49,16 @@ class NightWriter
 
     return_file.write(message_file.read)
     # return_file.close
+  end
+
+  def translate_to_braille(text)
+    # require 'pry'; binding.pry
+    braille_arr = []
+    text_array = text.split("")
+    text_array.each do |letter|
+      braille_arr << @braille_alphabet[letter].join("/n")
+    end
+    braille_arr.join
   end
 end
 

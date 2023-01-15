@@ -14,12 +14,12 @@ RSpec.describe NightWriter do
     night_writer.read_file = './message.txt'
     night_writer.write_file = './braille.txt'
 
-    night_writer.call
+    # night_writer.call_read_to_write
     expect(night_writer.read_file).to eq('./message.txt')
     expect(night_writer.write_file).to eq('./braille.txt')
   end
 
-  it 'has a dictionary that can translate english to braille' do
+  it 'has an alphabet that can translate english to braille' do
     night_writer = NightWriter.new
 
     expected = {
@@ -52,6 +52,19 @@ RSpec.describe NightWriter do
       " " => ["..", "..", ".."]
     }
 
-    expect(night_writer.braille_alphabet).to match_array(expected)
+    expect(night_writer.braille_alphabet).to eq(expected)
   end
+
+    it 'can translate english to braille' do
+      night_writer = NightWriter.new
+      night_writer.read_file = './message.txt'
+      night_writer.write_file = './braille.txt'
+
+      expect(night_writer.translate_to_braille("a")).to eq("0./n../n..")
+      # expect(night_writer.translate_to_braille("abc")).to eq([["0.", "..", ".."],["00", "..", ".."],["0.", ".0", ".."]])
+      # expect(night_writer.translate("amy")).to eq("0./n../n..")
+      
+
+    end
+ 
 end
