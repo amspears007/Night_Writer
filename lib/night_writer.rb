@@ -38,21 +38,17 @@ class NightWriter
   end
 
   def call_read_to_write
-    #a start method
-    # message_text= File.read(@read_file)
-    message_file = File.open(@read_file, "r")
-    return_file = File.new(@write_file, "w")
+    message = File.read(@read_file)
+   
+    char_count = message.chars.count
+    braille_output = translate_to_braille(message)
 
-    char_count = message_file.chars.count
-
+    File.write(@write_file, braille_output)
+    
     puts "Created #{ARGV[1]} contains #{char_count} characters"
-
-    return_file.write(message_file.read)
-    # return_file.close
   end
 
   def translate_to_braille(text)
-    # require 'pry'; binding.pry
     braille_arr = []
     text_array = text.split("")
     text_array.each do |letter|
@@ -64,15 +60,5 @@ end
 
 
 # #Acts a runner file outside of class
-# night_writer = NightWriter.new
-# night_writer.call_read_to_write
-
-#start method this new_method to translate to braille
-
-# handle = File.open(message.txt, "r")
-
-# incoming_text = handle.read
-
-# handle.close
-
-# puts incoming_text
+night_writer = NightWriter.new
+night_writer.call_read_to_write
