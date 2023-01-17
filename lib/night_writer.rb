@@ -62,26 +62,28 @@ class NightWriter
     text_array = text.split("")
     braille_array = text_array.map do |letter|
        @braille_alphabet[letter]
-      #  require 'pry'; binding.pry
     end
     #creates 3 arrays +["0.", "..", ".."]["00", "..", ".."]["0.", ".0", ".."]
     #want to eq "0.000.\n.....0\n......"
     #transpose makes rows into colums
     #[["0.", "..", ".."], ["00", "..", ".."], ["0.", ".0", ".."]] turns into
     #[["0.", "00", "0."], ["..", "..", ".0"], ["..", "..", ".."]]
-    braille_array
-    # require 'pry'; binding.pry
-    .transpose.map do |symbol|
-      symbol.join
+    x = braille_array.transpose.map do |symbol|
+      # require 'pry'; binding.pry
+      symbol
       #.chars.map do |slice|
       #   slice.join
       # end
     end
+     y = x.map do |line|
+      # require 'pry'; binding.pry
+      line.join
+     end.join("\n")
 
   end
 end
 
 
 # #Acts a runner file outside of class
-# night_writer = NightWriter.new
-# night_writer.call_read_to_write
+night_writer = NightWriter.new
+night_writer.call_read_to_write
