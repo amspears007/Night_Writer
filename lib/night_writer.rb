@@ -58,32 +58,23 @@ class NightWriter
   end
 
   def word_to_braille(text)
-    # braille_arr = []
     text_array = text.split("")
     braille_array = text_array.map do |letter|
        @braille_alphabet[letter]
     end
-    #creates 3 arrays +["0.", "..", ".."]["00", "..", ".."]["0.", ".0", ".."]
-    #want to eq "0.000.\n.....0\n......"
-    #transpose makes rows into colums
-    #[["0.", "..", ".."], ["00", "..", ".."], ["0.", ".0", ".."]] turns into
-    #[["0.", "00", "0."], ["..", "..", ".0"], ["..", "..", ".."]]
-    x = braille_array.transpose.map do |symbol|
-      # require 'pry'; binding.pry
-      symbol
-      #.chars.map do |slice|
-      #   slice.join
-      # end
+
+    transposed_array = braille_array.transpose.map do |symbol|
+      symbol  
     end
-     y = x.map do |line|
-      # require 'pry'; binding.pry
+     transposed_array.map do |line|
       line.join
      end.join("\n")
-
   end
 end
-
+#.chars.map do |slice|
+      #   slice.join
+      # end
 
 # #Acts a runner file outside of class
-night_writer = NightWriter.new
-night_writer.call_read_to_write
+# night_writer = NightWriter.new
+# night_writer.call_read_to_write
