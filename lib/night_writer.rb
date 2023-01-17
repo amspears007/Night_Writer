@@ -41,14 +41,14 @@ class NightWriter
     message = File.read(@read_file)
    
     char_count = message.chars.count
-    braille_output = translate_to_braille(message)
+    braille_output = word_to_braille(message)
 
     File.write(@write_file, braille_output)
     
     puts "Created #{ARGV[1]} contains #{char_count} characters"
   end
 
-  def translate_to_braille(text)
+  def letter_to_braille(text)
     braille_arr = []
     text_array = text.split("")
     text_array.each do |letter|
@@ -56,9 +56,25 @@ class NightWriter
     end
     braille_arr.join
   end
-end
 
+  def word_to_braille(text)
+    text_array = text.split("")
+    braille_array = text_array.map do |letter|
+       @braille_alphabet[letter]
+    end
+
+    transposed_array = braille_array.transpose.map do |symbol|
+      symbol  
+    end
+     transposed_array.map do |line|
+      line.join
+     end.join("\n")
+  end
+end
+#.chars.map do |slice|
+      #   slice.join
+      # end
 
 # #Acts a runner file outside of class
-night_writer = NightWriter.new
-night_writer.call_read_to_write
+# night_writer = NightWriter.new
+# night_writer.call_read_to_write
