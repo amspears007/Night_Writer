@@ -61,7 +61,6 @@ class NightWriter
     braille_array = text_array.map do |letter|
        braille_alphabet[letter]
     end
-    #coverts to array "abc" [["0.", "..", ".."], ["00", "..", ".."], ["0.", ".0", ".."]]
 
     braille_array.transpose.map do |line|
       line.join
@@ -71,5 +70,5 @@ class NightWriter
 end
 
 # #Acts a runner file outside of class
-night_writer = NightWriter.new
-night_writer.call_read_to_write
+# night_writer = NightWriter.new
+# night_writer.call_read_to_write

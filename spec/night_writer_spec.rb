@@ -72,19 +72,16 @@ RSpec.describe NightWriter do
     night_writer.write_file = './braille.txt'
 
     expect(night_writer.word_to_braille("abc")).to eq("0.000.\n.....0\n......")
-    # expect(night_writer.word_to_braille("a")).to eq("0.\n..\n..")
-    # expect(night_writer.word_to_braille("a b c")).to eq("0...00..0.\n.........0\n..........")  
-    # expect(night_writer.word_to_braille("amy spears")).to eq("0.0.0....0000.0.00.0\n..0000..0000....0.00\n....00......0...0...")
+    expect(night_writer.word_to_braille("a b c")).to eq("0...00..0.\n.........0\n..........")  
+    expect(night_writer.word_to_braille("amy spears")).to eq("0.0.0....0000.0.00.0\n..0000..0000....0.00\n....00......0...0...")
   end
 
   it 'can word wrap' do
     night_writer = NightWriter.new(word_wrap:2)
     night_writer.read_file = './message.txt'
     night_writer.write_file = './braille.txt'
-
     
     expected = "0.00\n....\n....\n0.\n.0\n.."
-    
     expect(night_writer.word_to_braille("abc")).to eq(expected)
   end
 
