@@ -1,9 +1,10 @@
 class NightWriter
   attr_accessor :read_file, 
                 :write_file,
-                :braille_alphabet
-  
-  def initialize
+                :braille_alphabet,
+                :word_wrap 
+  def initialize(word_wrap: 40)
+    @word_wrap = word_wrap
     @read_file = ARGV[0]
     @write_file = ARGV[1]
     @braille_alphabet = {
@@ -38,43 +39,37 @@ class NightWriter
   end
 
   def call_read_to_write
-    message = File.read(@read_file)
+    message = File.read(read_file)
    
     char_count = message.chars.count
     braille_output = word_to_braille(message)
 
-    File.write(@write_file, braille_output)
+    File.write(write_file, braille_output)
     
-    puts "Created #{ARGV[1]} contains #{char_count} characters"
+    puts "Created #{write_file} contains #{char_count} characters"
   end
 
   def letter_to_braille(text)
-    braille_arr = []
     text_array = text.split("")
-    text_array.each do |letter|
-      braille_arr << @braille_alphabet[letter].join("\n")
-    end
-    braille_arr.join
+    text_array.map do |letter|
+      braille_alphabet[letter].join("\n")
+    end.join
   end
 
   def word_to_braille(text)
-    text_array = text.split("")
+    text.split("").each_slice(word_wrap).map do |text_array|
     braille_array = text_array.map do |letter|
-       @braille_alphabet[letter]
+       braille_alphabet[letter]
     end
+    #coverts to array "abc" [["0.", "..", ".."], ["00", "..", ".."], ["0.", ".0", ".."]]
 
-    transposed_array = braille_array.transpose.map do |symbol|
-      symbol  
-    end
-     transposed_array.map do |line|
+    braille_array.transpose.map do |line|
       line.join
      end.join("\n")
+    end.join("\n")
   end
 end
-#.chars.map do |slice|
-      #   slice.join
-      # end
 
 # #Acts a runner file outside of class
-# night_writer = NightWriter.new
-# night_writer.call_read_to_write
+night_writer = NightWriter.new
+night_writer.call_read_to_write

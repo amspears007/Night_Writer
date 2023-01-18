@@ -2,7 +2,7 @@ require_relative 'spec_helper'
 
 RSpec.describe NightWriter do
   it 'exists' do
-    night_writer = NightWriter.new
+    night_writer = NightWriter.new()
     night_writer.read_file = './message.txt'
     night_writer.write_file = './braille.txt'
 
@@ -75,6 +75,27 @@ RSpec.describe NightWriter do
     # expect(night_writer.word_to_braille("a")).to eq("0.\n..\n..")
     # expect(night_writer.word_to_braille("a b c")).to eq("0...00..0.\n.........0\n..........")  
     # expect(night_writer.word_to_braille("amy spears")).to eq("0.0.0....0000.0.00.0\n..0000..0000....0.00\n....00......0...0...")
+  end
+
+  it 'can word wrap' do
+    night_writer = NightWriter.new(word_wrap:2)
+    night_writer.read_file = './message.txt'
+    night_writer.write_file = './braille.txt'
+
+    
+    expected = "0.00\n....\n....\n0.\n.0\n.."
+    
+    expect(night_writer.word_to_braille("abc")).to eq(expected)
+  end
+
+  it "writes braille to output file" do
+    night_writer = NightWriter.new
+      night_writer.read_file = "./spec/test_text.txt"
+      night_writer.write_file = "./spec/return_text.txt"
+
+      night_writer.call_read_to_write
+      expect(File.read("./spec/return_text.txt")).to eq("0.000.\n.....0\n......")
+      File.delete("./spec/return_text.txt")
   end
 
   xit 'can convert braille to english' do
